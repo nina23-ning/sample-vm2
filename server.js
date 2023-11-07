@@ -2,7 +2,8 @@ const http = require('http');
 const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
-const {NodeVM} = require('vm2');
+const {VM} = require("vm2");
+const vm = new VM();
 const app = express();
 
 const server = http.createServer(app);
@@ -20,12 +21,6 @@ app.post('/', function(req, res){
     console.log(req.body);
     try{
         console.log("Code", req.body.code);
-        const vm = new NodeVM({
-            console: 'inherit',
-            sandbox: {},
-            require: {external: true},
-            wrapper: 'none',
-        });
         vm.run(req.body.code);
         res.sendFile(path.join(__dirname+'/success.html'));
         console.log("Success");
