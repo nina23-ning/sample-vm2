@@ -31,6 +31,6 @@ app.post('/', function(req, res){
     }
 });
 
-server.listen(port);
+app.listen(port, '0.0.0.0');
 
 console.debug('Server listening on port ' + port);
